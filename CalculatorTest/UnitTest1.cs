@@ -11,16 +11,16 @@ namespace CalculatorTest
         {
             var program = new Program();
 
-            var resultAdd = program.Add(2, 2);
+            double resultAdd = program.Add(2, 2);
             Assert.AreEqual(resultAdd, 4);
 
-            var resultSubtract = program.Subtract(4, 3.5);
+            double resultSubtract = program.Subtract(4, 3.5);
             Assert.AreEqual(resultSubtract, 0.5);
 
-            var resultMultiply = program.Multiply(2.5, 2);
+            double resultMultiply = program.Multiply(2.5, 2);
             Assert.AreEqual(resultMultiply, 5);
 
-            var resultDivide = program.Divide(9, 3);
+            double resultDivide = program.Divide(9, 3);
             Assert.AreEqual(resultDivide, 3);
 
         }
