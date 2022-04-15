@@ -1,0 +1,57 @@
+﻿<Window x:Class="View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
+        xmlns:local="clr-namespace:View"
+        mc:Ignorable="d"
+        Title="Our great wspolbiezny project" Height="auto" Width="auto">
+    <Window.DataContext>
+        <vm:MainWindowViewModel />
+    </Window.DataContext>
+    <StackPanel Orientation="Vertical">
+    
+    <Canvas Width="800" Height="450">
+        <Ellipse Name="Elipse1" Fill="Blue" Height="100" Width="100"  Canvas.Left="133" Canvas.Top="86"/>
+        <Ellipse x:Name="Elipse2" Fill="Blue" Height="100" Width="100"  Canvas.Left="578" Canvas.Top="86" Opacity="0.7">
+            <Ellipse.Triggers>
+                <EventTrigger RoutedEvent="Ellipse.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetName="Elipse2"
+                                Storyboard.TargetProperty="Width"
+                                From="10.0"
+                                To="100.0"
+                                Duration="0:0:3"
+                                AutoReverse="True"
+                                RepeatBehavior="Forever" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="Ellipse.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetName="Elipse1"
+                                Storyboard.TargetProperty="Height"
+                                From="10.0"
+                                To="100.0"
+                                Duration="0:0:3"
+                                AutoReverse="True"
+                                RepeatBehavior="Forever" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Ellipse.Triggers>
+
+        </Ellipse>
+   
+    </Canvas>
+        <StackPanel Orientation="Horizontal" Height="140" RenderTransformOrigin="0.49,0.54" Width="501">
+            <Button Content="Nacisnij, ale i tak nic nie robie" MinHeight="100" MinWidth="500" Command= "{Binding ButtomClick}"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

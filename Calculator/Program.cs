@@ -1,32 +1,28 @@
 ﻿using System;
+using System.Threading;
 
-namespace Calculator
+namespace Logic
 {
     public class Program
     {
-        public double Add(double a, double b)
-        {
-            return a + b;
-        }
-
-        public double Subtract(double a, double b)
-        {
-            return a - b;
-        }
-
-        public double Multiply(double a, double b)
-        {
-            return a * b;
-        }
-
-        public double Divide(double a, double b)
-        {
-            return a / b;
-        }
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Thread watek = new Thread(dodaj);
+            watek.Start();
+            Thread watek2 = new Thread(odejmij);
+            watek2.Start(); 
+        }
+
+        static void dodaj()
+        {
+            for(int i = 0; i < 100; i++)
+            Console.WriteLine(4 + i);
+        }
+        static void odejmij()
+        {
+            for (int i = 0; i < 100; i++)
+                Console.WriteLine(-1 - i);
         }
     }
 }
