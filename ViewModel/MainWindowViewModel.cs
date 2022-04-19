@@ -2,6 +2,7 @@
 using Model;
 using System.ComponentModel;
 
+
 namespace ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
@@ -10,6 +11,7 @@ namespace ViewModel
 
         static void Main()
         {
+
         }
     }
 }
