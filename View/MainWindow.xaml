@@ -16,40 +16,7 @@
             <Rectangle x:Name="Rectangle" Width="700" Height="400" Stroke="Black" StrokeThickness="3" Canvas.Left="50" Canvas.Top="25" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <Ellipse Name="Elipse1" Fill="Blue" Height="100" Width="100"  Canvas.Left="133" Canvas.Top="86"/>
-            <Ellipse x:Name="Elipse2" Fill="Blue" Height="100" Width="100"  Canvas.Left="578" Canvas.Top="86" Opacity="0.7">
-                <Ellipse.Triggers>
-                    <EventTrigger RoutedEvent="Ellipse.Loaded">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                                Storyboard.TargetName="Elipse2"
-                                Storyboard.TargetProperty="Width"
-                                From="10.0"
-                                To="100.0"
-                                Duration="0:0:3"
-                                AutoReverse="True"
-                                RepeatBehavior="Forever" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-
-                    <EventTrigger RoutedEvent="Ellipse.Loaded">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                                Storyboard.TargetName="Elipse1"
-                                Storyboard.TargetProperty="Height"
-                                From="10.0"
-                                To="100.0"
-                                Duration="0:0:3"
-                                AutoReverse="True"
-                                RepeatBehavior="Forever" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Ellipse.Triggers>
-
-            </Ellipse>
+            <Ellipse x:Name="Elipse2" Fill="Blue" Height="100" Width="100"  Canvas.Left="578" Canvas.Top="86" Opacity="0.7"/>
 
         </Canvas>
         <StackPanel Orientation="Horizontal" Height="45" Width="264">
