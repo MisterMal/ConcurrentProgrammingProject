@@ -28,6 +28,25 @@ namespace Logic
             return this.x;
         }
 
+        public float X
+        {
+            get => this.x;
+            set
+            {
+                this.x = value;
+                RaisePropertyChanged(nameof(X));
+            }
+        }
+        public float Y
+        {
+            get => this.y;
+            set
+            {
+                this.y = value;
+                RaisePropertyChanged(nameof(Y)); 
+            }
+        }
+
         public float GetY()
         {
             return this.y;

@@ -20,6 +20,11 @@ namespace Data
         {
             return new Data();
         }
+
+        static void Main()
+        {
+
+        }
     }
 
 

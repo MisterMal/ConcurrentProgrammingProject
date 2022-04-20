@@ -4,28 +4,80 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
-        xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
         Title="Wspolbiezny project" Height="auto" Width="auto">
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
-    <StackPanel Orientation="Vertical">
 
-        <Canvas Width="800" Height="432">
-            <Rectangle x:Name="Rectangle" Width="700" Height="400" Stroke="Black" StrokeThickness="3" Canvas.Left="50" Canvas.Top="25" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+    <Grid >
+        <TextBlock Text="Liczba kul" FontSize="20" FontWeight="Bold" Height="31" Margin="60,415,645,14" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBox HorizontalAlignment="Left" 
+                 Margin="173,418,0,17"
+                Width="100" Height="25" 
+                     Text="{Binding NumberOfBalls}"
+                     FontSize="20"
+                     TextWrapping="Wrap"               
+                     RenderTransformOrigin="0.793,-0.561" />
+        <Button x:Name="START"  
+                    Content="START"
+                    Command="{Binding Start}" Margin="353,411,278,14"
+                    />
+        <Border BorderThickness="3"
+                BorderBrush="Black"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="700 "
+                Height="400" Margin="60,0,0,0">
 
-            <Ellipse Name="Elipse1" Fill="Blue" Height="100" Width="100"  Canvas.Left="133" Canvas.Top="86"/>
-            <Ellipse x:Name="Elipse2" Fill="Blue" Height="100" Width="100"  Canvas.Left="578" Canvas.Top="86" Opacity="0.7"/>
+            <ItemsControl 
+                ItemsSource="{Binding Circles}"              
+                Height="{Binding Height}"
+                Width="{Binding Width}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center" Background="#FFD22121">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Name="Box"
+                                Background="White"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left"
+                                Value="{Binding X_Center}" />
+                        <Setter Property="Canvas.Top"
+                                Value="{Binding Y_Center}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Ellipse 
+                            Height="{Binding Diameter}"
+                            Width="{Binding Diameter}"
+                            Fill="Blue"
+                            Stroke="Black"
+                            StrokeThickness="1">
+                            <Ellipse.Effect>
+                                <DropShadowEffect/>
+                            </Ellipse.Effect>
 
-        </Canvas>
-        <StackPanel Orientation="Horizontal" Height="45" Width="264">
-            <TextBlock Text="Liczba kul" FontSize="20" FontWeight="Bold" Width="142" Height="31"/>
-            <TextBox x:Name="ile_kul" Width="100" Height="25" RenderTransformOrigin="0.793,-0.561" />
-        </StackPanel>
-
-        <StackPanel Orientation="Horizontal" Height="65" Width="156">
-            <Button x:Name="START"  Content="START" Height="60" Width="140"/>
-        </StackPanel>
-    </StackPanel>
+                            <Ellipse.RenderTransform>
+                                <TranslateTransform X="{Binding CenterTransform}" Y="{Binding CenterTransform}" />
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+    </Grid>
 </Window>
