@@ -9,60 +9,65 @@ using System.Runtime.CompilerServices;
 
 namespace Model
 {
-    public class Circle : INotifyPropertyChanged
+    public class BallModel : INotifyPropertyChanged
     {
+        private float xValue;
+        private float yValue;
+        private int radiusValue;
+
         public event PropertyChangedEventHandler PropertyChanged;
         
-        public Circle(Ball ball)
+        public BallModel(Ball ball)
         {
             ball.PropertyChanged += OnPropertyChanged;
-            X_Center = ball.X;
-            Y_Center = ball.Y;
-            Radius = (int)ball.GetRadius();
+            x = ball.x;
+            y = ball.y;
+            Radius = (int)ball.radius;
         
         }
 
-        private int x_center;
-        private int y_center;
-        private int radius;
-
-
         public int Radius
         {
-            get { return radius; }
-            set { 
-                radius = value;
+            get 
+            {
+                return radiusValue;
+            }
+            set 
+            { 
+                radiusValue = value;
                 RaisePropertyChanged("Radius");
             }
         }
 
-        public float X_Center
+        public float x
         {
-            get { return x_center; }
+            get 
+            { 
+                return xValue;
+            }
             set 
             { 
-                x_center = (int)value;
-                RaisePropertyChanged("X_Center");
+                xValue = value;
+                RaisePropertyChanged("xValue");
             }
         }
 
-        public float Y_Center
+        public float y
         {
-            get { return y_center; }
+            get 
+            { 
+                return yValue;
+            }
             set
             {
-                x_center = (int)value;
-                RaisePropertyChanged("Y_Center");
+                yValue = value;
+                RaisePropertyChanged("yValue");
             }
         }
 
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
-            //Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
-            //{
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            //}));
-
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -72,16 +77,12 @@ namespace Model
             switch (e.PropertyName)
             {
                 case "X":
-                    X_Center = b.X;
+                    x = b.x;
                     break;
                 case "Y":
-                    Y_Center = b.Y;
+                    y = b.y;
                     break;
             }
-        }
-        static void Main()
-        {
-
         }
     }
 }
