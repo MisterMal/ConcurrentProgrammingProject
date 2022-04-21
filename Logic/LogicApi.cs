@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -8,14 +9,24 @@ namespace Logic
     {
         private List<Thread> threadsList;
         private List<Ball> ballList;
+        private static DataApi dataApi;
 
         public abstract void BallsCreating(float xSpeed, float ySpeed, int radius, int howMany);
         public abstract void Start();
 
+        public static LogicApi CreateApi(DataApi data = default)
+        {
+            return new LogicLayer(data ?? DataApi.CreateAPI());
+        }
         
 
         public class LogicLayer : LogicApi
         {
+            public LogicLayer(DataApi data)
+            {
+                dataApi = data;
+            }
+
             public override void BallsCreating(float xSpeed, float ySpeed, int radius, int howMany)
             {
                 threadsList = new List<Thread>();
