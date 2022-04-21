@@ -50,7 +50,7 @@ namespace ViewModel
             set => _height = value;
         }
 
-        public ObservableCollection<Circle> Circles
+        public ObservableCollection<BallModel> Circles
         {
             get => MyModel.Circles;
             set => MyModel.Circles = value;
