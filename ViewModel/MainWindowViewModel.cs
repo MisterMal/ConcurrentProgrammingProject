@@ -11,20 +11,22 @@ namespace ViewModel
     {
         public MainWindowViewModel()
         {
-            MyModel = ModelAbstractAPI.CreateAPI();
+            MyModel = ModelApi.CreateApi();
             Start = new RelayCommand(() => start());
-            Stop = new RelayCommand(() => stop());
             _numberOfBalls = 5;
             _startButton = "Start";
         }
 
-        private ModelAbstractAPI MyModel { get; set; }
+        private ModelApi MyModel { get; set; }
 
 
         private int _numberOfBalls;
         private int _height = 400;
         private int _width = 700;
         private string _startButton;
+
+        public ICommand Start { get; set; }
+        public ICommand Stop { get; set; }
 
         public string StartButton
         {
@@ -43,17 +45,10 @@ namespace ViewModel
             set => _width = value;
         }
 
-
         public int Height
         {
             get => _height;
             set => _height = value;
-        }
-
-        public ObservableCollection<BallModel> Circles
-        {
-            get => MyModel.Circles;
-            set => MyModel.Circles = value;
         }
 
         public int NumberOfBalls
@@ -62,20 +57,12 @@ namespace ViewModel
             set => _numberOfBalls = value;
         }
 
-        public ICommand Start { get; set; }
-        public ICommand Stop { get; set; }
+
 
         public void start()
         {
-            MyModel.generateBallsRepresentative(Height, Width, NumberOfBalls, 15);
-            StartButton = "Restart";
+   
         }
-
-        public void stop()
-        {
-            MyModel.stopSimulation();
-        }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -8,16 +8,18 @@ namespace Data
 {
     public abstract class DataApi
     {
+        public abstract void Connect();
+
         public static DataApi CreateAPI()
         {
             return new DataLayer();
         }
 
-        public class DataLayer : DataApi
+        internal class DataLayer : DataApi
         {
-            public DataLayer()
+            public override void Connect()
             {
-
+                throw new NotImplementedException();    
             }
         }
     }
