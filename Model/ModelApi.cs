@@ -33,6 +33,9 @@ namespace Model
             {
   
                 logicApi.BallsCreating(xSpeed, ySpeed, radius, howMany);
+
+                foreach (IBall b in logicApi.)
+
                 logicApi.Start();
             }
         }

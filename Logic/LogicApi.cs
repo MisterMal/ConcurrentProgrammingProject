@@ -8,11 +8,13 @@ namespace Logic
     public abstract class LogicApi
     {
         private List<Thread> threadsList = new List<Thread>();
-        private List<Ball> ballList = new List<Ball>();
+        private List<IBall> ballList = new List<IBall>();
         private static DataApi dataApi;
 
         public abstract void BallsCreating(float xSpeed, float ySpeed, int radius, int howMany);
         public abstract void Start();
+
+        public abstract List<IBall> GetBallList();
 
         public static LogicApi CreateApi(DataApi data = default)
         {
@@ -22,6 +24,8 @@ namespace Logic
 
         public class LogicLayer : LogicApi
         {
+            public abstract List<IBall> GetBallList();
+
             public LogicLayer(DataApi data)
             {
                 dataApi = data;
@@ -31,8 +35,8 @@ namespace Logic
             {
                 for (int i = 0; i < howMany; i++)
                 {
-                    Ball ball = new Ball(radius, xSpeed, ySpeed);
-                    this.ballList.Add(ball);
+                    //Ball ball = new Ball(radius, xSpeed, ySpeed);
+                    this.ballList.Add(new Ball(radius, xSpeed, ySpeed));
                 }
 
                 foreach (Ball ball in ballList)
