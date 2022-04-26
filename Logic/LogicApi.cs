@@ -7,8 +7,8 @@ namespace Logic
 {
     public abstract class LogicApi
     {
-        private List<Thread> threadsList;
-        private List<Ball> ballList;
+        private List<Thread> threadsList = new List<Thread>();
+        private List<Ball> ballList = new List<Ball>();
         private static DataApi dataApi;
 
         public abstract void BallsCreating(float xSpeed, float ySpeed, int radius, int howMany);
@@ -29,17 +29,15 @@ namespace Logic
 
             public override void BallsCreating(float xSpeed, float ySpeed, int radius, int howMany)
             {
-                threadsList = new List<Thread>();
-                ballList = new List<Ball>();
-
                 for (int i = 0; i < howMany; i++)
                 {
-                    ballList.Add(new Ball(radius ,xSpeed, ySpeed));
+                    Ball ball = new Ball(radius, xSpeed, ySpeed);
+                    this.ballList.Add(ball);
                 }
 
                 foreach (Ball ball in ballList)
                 {
-                    threadsList.Add(new Thread(new ThreadStart(ball.Movement)));
+                    this.threadsList.Add(new Thread(new ThreadStart(ball.Movement)));
                 }
             }
 
@@ -50,6 +48,11 @@ namespace Logic
                     thread.Start();
                 }
             }
+        }
+
+        static public void Main()
+        {
+
         }
     }
 

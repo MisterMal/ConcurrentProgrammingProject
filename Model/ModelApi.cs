@@ -5,20 +5,18 @@ namespace Model
 {
     public abstract class ModelApi
     {
-        private ObservableCollection<BallModel> ballModelsCollection = new ObservableCollection<BallModel>();
+        private ObservableCollection<IBallModel> ballModelsCollection = new ObservableCollection<IBallModel>();
 
-        public static ModelApi CreateApi(LogicApi logicLayer = default)
+        public static ModelApi CreateApi(LogicApi logic = default)
         {
-            return new ModelLayer(logicLayer ?? LogicApi.CreateApi());
+            return new ModelLayer(logic ?? LogicApi.CreateApi());
         }
-
-        public abstract void Start();
         public abstract void Visualisation(float xSpeed, float ySpeed, int radius, int howMany);
 
-        public ObservableCollection<BallModel> BallModelsCollection
+        public ObservableCollection<IBallModel> BallModelsCollection
         {
-            get => BallModelsCollection;
-            set => BallModelsCollection = value;
+            get => ballModelsCollection;
+            set => ballModelsCollection = value;
         }
 
         public class ModelLayer : ModelApi
@@ -30,15 +28,18 @@ namespace Model
                 logicApi = logic;
             }
 
-            public override void Start()
-            {
-                logicApi.Start();
-            }
 
             public override void Visualisation(float xSpeed, float ySpeed, int radius, int howMany)
             {
-                logicApi.BallsCreating((float)0.5, (float)0.5, 10, 5);
+  
+                logicApi.BallsCreating(xSpeed, ySpeed, radius, howMany);
+                logicApi.Start();
             }
+        }
+
+        static public void Main()
+        {
+
         }
     }
 

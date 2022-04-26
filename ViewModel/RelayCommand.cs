@@ -9,25 +9,28 @@ namespace ViewModel
 {
     internal class RelayCommand : ICommand
     {
+        private readonly Action execute;
+        private readonly Func<bool> canExecute;
+
         public RelayCommand(Action execute) : this(execute, null) { }
 
         public RelayCommand(Action execute, Func<bool> canExecute)
         {
-            this.m_Execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            this.m_CanExecute = canExecute;
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.canExecute = canExecute;
         }
         public bool CanExecute(object parameter)
         {
-            if (this.m_CanExecute == null)
+            if (this.canExecute == null)
                 return true;
             if (parameter == null)
-                return this.m_CanExecute();
-            return this.m_CanExecute();
+                return this.canExecute();
+            return this.canExecute();
         }
 
         public virtual void Execute(object parameter)
         {
-            this.m_Execute();
+            this.execute();
         }
 
 
@@ -37,10 +40,5 @@ namespace ViewModel
         {
             this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
-
-
-        private readonly Action m_Execute;
-        private readonly Func<bool> m_CanExecute;
-
     }
 }

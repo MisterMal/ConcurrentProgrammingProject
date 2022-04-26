@@ -7,12 +7,11 @@ namespace Logic
 {
     public class Ball : INotifyPropertyChanged
     {
-        private String name;
         private float xValue;
         private float yValue;
-        private int radiusValue;
-        private float xSpeedValue;
-        private float ySpeedValue;
+        private int radiusValue = 10;
+        private float xSpeedValue = (float)0.5;
+        private float ySpeedValue = (float)0.5;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -21,105 +20,103 @@ namespace Logic
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public float x
+        public float X
         {
             get => this.xValue;
             set
             {
                 this.xValue = value;
-                RaisePropertyChanged(nameof(x));
+                RaisePropertyChanged(nameof(X));
             }
         }
-        public float y
+        public float Y
         {
             get => this.yValue;
             set
             {
                 this.yValue = value;
-                RaisePropertyChanged(nameof(y)); 
+                RaisePropertyChanged(nameof(Y)); 
             }
         }
 
-        public float xSpeed
+        public float XSpeed
         {
             get => this.xSpeedValue;
             set
             {
-                this.yValue = value;
-                RaisePropertyChanged(nameof(xSpeed));
+                this.xSpeedValue = value;
+                RaisePropertyChanged(nameof(XSpeed));
             }
         }
 
-        public int radius
+        public float YSpeed
+        {
+            get => this.ySpeedValue;
+            set
+            {
+                this.ySpeedValue = value;
+                RaisePropertyChanged(nameof(YSpeed));
+            }
+        }
+
+        public int Radius
         {
             get => this.radiusValue;
             set
             {
-                this.radius = value;
+                this.Radius = value;
                 RaisePropertyChanged(nameof(radiusValue));
             }
-        }
-
-        public Ball(int radius, float speedx, float speedy, String name)
-        {
-            Random rand = new Random();
-            this.radiusValue = radius;
-            this.xValue = rand.Next(0 + this.radiusValue, 700 - this.radiusValue);
-            this.yValue = rand.Next(0 + this.radiusValue, 400 - this.radiusValue);
-            this.xSpeedValue = speedx;
-            this.ySpeedValue = speedy;
-            this.name = name;
         }
 
         public Ball(int radius, float speedx, float speedy)
         {
             Random rand = new Random();
             this.radiusValue = radius;
-            this.xValue = rand.Next(0 + this.radiusValue, 700 - this.radiusValue);
-            this.yValue = rand.Next(0 + this.radiusValue, 400 - this.radiusValue);
+            this.xValue = rand.Next(0 + Radius, 700 - Radius);
+            this.yValue = rand.Next(0 + Radius, 400 - Radius);
             this.xSpeedValue = speedx;
             this.ySpeedValue = speedy;
+            
         }
 
         public void Movement()
         {
             float tempx, tempy;
 
-            while(this.ySpeedValue > 0 || this.xSpeedValue > 0)
+            while(this.YSpeed > 0 || this.XSpeed > 0)
             {
-                tempx = this.xValue + xSpeedValue;
-                tempy = this.yValue + ySpeedValue;
+                tempx = X + XSpeed;
+                tempy = X + YSpeed;
                 if (this.BorderCheckX(tempx))
                 {
-                    //Console.WriteLine("Name:" + this.name + " x:" + this.x + " y:" + this.y);
                     return;
                 }
                 if (this.BorderCheckY(tempy))
                 {
-                    //Console.WriteLine("Name:" + this.name + " x:" + this.x + " y:" + this.y);
                     return;
                 }
-                x = tempx;
-                y = tempy;
-                //Console.WriteLine("Name:" + this.name + " x:" + this.x + " y:" + this.y);
+                X = tempx;
+                Y = tempy;
+                
                 Thread.Sleep(1);
             }
         }
 
         public Boolean BorderCheckX(float testX)
         {
-            if (testX + this.radiusValue >= 700)
+            if (testX + Radius >= 700)
             {
-                x = 700 - this.radiusValue;
-                this.xSpeedValue = 0;
-                this.ySpeedValue = 0;
+                X = 700 - Radius;
+                XSpeed = 0;
+                YSpeed = 0;
                 return true;
             }
             if (testX - radiusValue <= 0)
             {
-                x = 0 + this.radiusValue;
-                this.xSpeedValue = 0;
-                this.ySpeedValue = 0;
+                X = 0 + Radius;
+                XSpeed = 0;
+                YSpeed = 0;
                 return true;
             }
             return false;
@@ -127,18 +124,18 @@ namespace Logic
 
         public Boolean BorderCheckY(float testY)
         {
-            if (testY + this.radiusValue >= 400)
+            if (testY + Radius >= 400)
             {
-                y = 400 - this.radiusValue;
-                this.xSpeedValue = 0;
-                this.ySpeedValue = 0;
+                Y = 400 - Radius;
+                XSpeed = 0;
+                YSpeed = 0;
                 return true;
             }
-            if (testY - this.radiusValue <= 0)
+            if (testY - Radius <= 0)
             {
-                y = 0 + this.radiusValue;
-                this.xSpeedValue = 0;
-                this.ySpeedValue = 0;
+                Y = 0 + Radius;
+                XSpeed = 0;
+                YSpeed = 0;
                 return true;
             }
             return false;

@@ -9,29 +9,27 @@ namespace ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        private int numberOfBalls;
+        private int height = 400;
+        private int width = 700;
+        private string startButton;
+
         public MainWindowViewModel()
         {
-            MyModel = ModelAbstractAPI.CreateAPI();
-            Start = new RelayCommand(() => start());
-            Stop = new RelayCommand(() => stop());
-            _numberOfBalls = 5;
-            _startButton = "Start";
+            MyModel = ModelApi.CreateApi();
+            Start = new RelayCommand(() => VisualisationStart());
+            numberOfBalls = 5;
+            startButton = "Start";
         }
 
-        private ModelAbstractAPI MyModel { get; set; }
-
-
-        private int _numberOfBalls;
-        private int _height = 400;
-        private int _width = 700;
-        private string _startButton;
+        private ModelApi MyModel { get; set; }
 
         public string StartButton
         {
-            get => _startButton;
+            get => startButton;
             set
             {
-                _startButton = value;
+                startButton = value;
                 RaisePropertyChanged("StartButton");
             }
 
@@ -39,41 +37,44 @@ namespace ViewModel
 
         public int Width
         {
-            get => _width;
-            set => _width = value;
+            get => width;
+            set
+            {
+                width = value;
+                RaisePropertyChanged("Width");
+            }
         }
 
 
         public int Height
         {
-            get => _height;
-            set => _height = value;
+            get => height;
+            set
+            {
+                height = value;
+                RaisePropertyChanged("Height");
+            }
         }
 
-        public ObservableCollection<BallModel> Circles
+        public ObservableCollection<IBallModel> BallModelsCollection
         {
-            get => MyModel.Circles;
-            set => MyModel.Circles = value;
+            get => MyModel.BallModelsCollection;
+            set => MyModel.BallModelsCollection = value;
         }
 
         public int NumberOfBalls
         {
-            get => _numberOfBalls;
-            set => _numberOfBalls = value;
+            get => numberOfBalls;
+            set => numberOfBalls = value;
         }
 
         public ICommand Start { get; set; }
         public ICommand Stop { get; set; }
 
-        public void start()
+        public void VisualisationStart()
         {
-            MyModel.generateBallsRepresentative(Height, Width, NumberOfBalls, 15);
-            StartButton = "Restart";
-        }
-
-        public void stop()
-        {
-            MyModel.stopSimulation();
+            MyModel.Visualisation(Height, Width, NumberOfBalls, 35);
+            StartButton = "In progress";
         }
 
 
@@ -86,8 +87,7 @@ namespace ViewModel
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-        static void Main()
+        static public void Main()
         {
 
         }

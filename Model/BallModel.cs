@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Logic;
 using System.ComponentModel;
-using Logic;
 using System.Runtime.CompilerServices;
 
 namespace Model
@@ -17,12 +12,12 @@ namespace Model
 
         public event PropertyChangedEventHandler PropertyChanged;
         
-        public BallModel(Ball ball)
+        public BallModel(IBall ball)
         {
             ball.PropertyChanged += OnPropertyChanged;
-            x = ball.x;
-            y = ball.y;
-            Radius = (int)ball.radius;
+            X = ball.X;
+            Y = ball.Y;
+            Radius = (int)ball.Radius;
         
         }
 
@@ -39,7 +34,7 @@ namespace Model
             }
         }
 
-        public float x
+        public float X
         {
             get 
             { 
@@ -48,11 +43,11 @@ namespace Model
             set 
             { 
                 xValue = value;
-                RaisePropertyChanged("xValue");
+                RaisePropertyChanged("X");
             }
         }
 
-        public float y
+        public float Y
         {
             get 
             { 
@@ -61,8 +56,13 @@ namespace Model
             set
             {
                 yValue = value;
-                RaisePropertyChanged("yValue");
+                RaisePropertyChanged("Y");
             }
+        }
+
+        public int DoubleRadius
+        {
+            get => Radius * 2;
         }
 
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
@@ -72,15 +72,15 @@ namespace Model
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Ball b = (Ball)sender;
+            IBall b = (IBall)sender;
 
             switch (e.PropertyName)
             {
                 case "X":
-                    x = b.x;
+                    X = b.X;
                     break;
                 case "Y":
-                    y = b.y;
+                    Y = b.Y;
                     break;
             }
         }
