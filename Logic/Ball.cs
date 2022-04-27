@@ -5,17 +5,17 @@ using System.Runtime.CompilerServices;
 
 namespace Logic
 {
-    public class Ball : INotifyPropertyChanged
+    public class Ball : IBall
     {
         private float xValue;
         private float yValue;
         private int radiusValue = 10;
-        private float xSpeedValue = (float)0.5;
-        private float ySpeedValue = (float)0.5;
+        private float xSpeedValue = (float)1;
+        private float ySpeedValue = (float)1;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        public void RaisePropertyChanged(string propertyName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -84,61 +84,50 @@ namespace Logic
         {
             float tempx, tempy;
 
-            while(this.YSpeed > 0 || this.XSpeed > 0)
+            while(true)
             {
                 tempx = X + XSpeed;
-                tempy = X + YSpeed;
-                if (this.BorderCheckX(tempx))
-                {
-                    return;
-                }
-                if (this.BorderCheckY(tempy))
-                {
-                    return;
-                }
-                X = tempx;
-                Y = tempy;
-                
-                Thread.Sleep(1);
+                tempy = Y + YSpeed;
+                this.BorderCheckX(tempx);
+                this.BorderCheckY(tempy);
+                Thread.Sleep(10);
             }
         }
 
-        public Boolean BorderCheckX(float testX)
+        public void BorderCheckX(float testX)
         {
-            if (testX + Radius >= 700)
+            if (testX >= 700 - Radius*2)
             {
-                X = 700 - Radius;
-                XSpeed = 0;
-                YSpeed = 0;
-                return true;
+                X = 700 - Radius * 2;
+                XSpeed *= -1;
             }
-            if (testX - radiusValue <= 0)
+            else if (testX <= 0)
             {
-                X = 0 + Radius;
-                XSpeed = 0;
-                YSpeed = 0;
-                return true;
+                X = 0;
+                XSpeed *= -1;
             }
-            return false;
+            else
+            {
+                X = X + XSpeed;
+            }
         }
 
-        public Boolean BorderCheckY(float testY)
+        public void BorderCheckY(float testY)
         {
-            if (testY + Radius >= 400)
+            if (testY + Radius * 2 >= 400)
             {
-                Y = 400 - Radius;
-                XSpeed = 0;
-                YSpeed = 0;
-                return true;
+                Y = 400 - Radius * 2;
+                YSpeed *= -1;
             }
-            if (testY - Radius <= 0)
+            else if (testY <= 0)
             {
-                Y = 0 + Radius;
-                XSpeed = 0;
-                YSpeed = 0;
-                return true;
+                Y = 0;
+                YSpeed *= -1;
             }
-            return false;
+            else
+            {
+                Y = Y + YSpeed;
+            }
         }
     }
 

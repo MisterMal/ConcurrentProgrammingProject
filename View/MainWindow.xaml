@@ -59,9 +59,6 @@
                             Fill="Khaki"
                             Stroke="Black"
                             StrokeThickness="1">
-
-                        
-
                     </Ellipse>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

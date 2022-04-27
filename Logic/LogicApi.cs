@@ -24,7 +24,10 @@ namespace Logic
 
         public class LogicLayer : LogicApi
         {
-            public abstract List<IBall> GetBallList();
+            public override List<IBall> GetBallList()
+            {
+                return this.ballList;
+            }
 
             public LogicLayer(DataApi data)
             {
@@ -35,7 +38,6 @@ namespace Logic
             {
                 for (int i = 0; i < howMany; i++)
                 {
-                    //Ball ball = new Ball(radius, xSpeed, ySpeed);
                     this.ballList.Add(new Ball(radius, xSpeed, ySpeed));
                 }
 

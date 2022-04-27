@@ -32,9 +32,11 @@ namespace Model
             public override void Visualisation(float xSpeed, float ySpeed, int radius, int howMany)
             {
   
-                logicApi.BallsCreating(xSpeed, ySpeed, radius, howMany);
-
-                foreach (IBall b in logicApi.)
+                logicApi.BallsCreating(1, 1, radius, howMany);
+                foreach (IBall b in logicApi.GetBallList())
+                {
+                    ballModelsCollection.Add(new BallModel(b));
+                }
 
                 logicApi.Start();
             }

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Model
 {
-    public class BallModel : INotifyPropertyChanged
+    public class BallModel : IBallModel
     {
         private float xValue;
         private float yValue;
@@ -65,7 +65,7 @@ namespace Model
             get => Radius * 2;
         }
 
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        public void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

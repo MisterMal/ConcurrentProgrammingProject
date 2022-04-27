@@ -5,11 +5,11 @@ namespace Model
 {
     public interface IBallModel : INotifyPropertyChanged
     {
-        int X { get; }
-        int Y { get; }
+        float X { get; }
+        float Y { get; }
         int Radius { get; }
         int DoubleRadius { get; }
 
-        void INotifyPropertyChanged(string propertyName = null);
+        void RaisePropertyChanged(string propertyName = null);
     }
 }

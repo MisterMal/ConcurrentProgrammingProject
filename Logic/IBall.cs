@@ -4,10 +4,10 @@ namespace Logic
 {
     public interface IBall : INotifyPropertyChanged
     {
-        int X { get; }
-        int Y { get; }
+        float X { get; }
+        float Y { get; }
         int Radius { get; }
 
-        void RaiseProperyChanged(string propertyName = null);
+        void RaisePropertyChanged(string propertyName = null);
     }
 }
