@@ -11,32 +11,38 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
 
-    <Grid Background="#FFB2A4B5">
+    <Grid Background="LightGray" Height="500" Width="720">
         <TextBox HorizontalAlignment="Left"
-                Margin="6,80,0,0"
+                Margin="227,427,0,0"
                 TextWrapping="Wrap"
                 Text="{Binding NumberOfBalls, UpdateSourceTrigger=PropertyChanged}"
                 VerticalAlignment="Top"
-                Width="144"
-                Height="48" FontSize="30"/>
+                Width="130"
+                Height="50" FontSize="35"/>
+        <TextBlock Text="Ilość kul" 
+           Foreground="Black" 
+           FontSize="40"
+           FontFamily="Arial" 
+           Margin="51,427,493,23"/>
+
         <Button x:Name="StartButton" Content="{Binding StartButton}"
                 HorizontalAlignment="Left"
-                Margin="6,153,0,0"
+                Margin="530,420,0,0"
                 VerticalAlignment="Top"
                 RenderTransformOrigin="-0.1,-0.297"
-                Height="75"
-                Width="148"
+                Height="70"
+                Width="180"
                 Command="{Binding Start}"
-                FontSize="36"
-                Background="#FF6ED22D"/>
+                FontSize="30"
+                Background="ForestGreen"/>
         <ItemsControl 
                 ItemsSource="{Binding BallModelsCollection}"              
                 Height="{Binding Height}"
                 Width="{Binding Width}"
-                Margin="167,0,0,0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                Background="#FFD22121">
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                Background="White" 
+                Margin="0,9,0,0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas Name="Box"
@@ -56,23 +62,12 @@
                     <Ellipse 
                             Height="{Binding DoubleRadius}"
                             Width="{Binding DoubleRadius}"
-                            Fill="Khaki"
+                            Fill="CadetBlue"
                             Stroke="Black"
                             StrokeThickness="1">
                     </Ellipse>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-
-        <Button Content="Stop"
-            HorizontalAlignment="Left"
-            Margin="6,247,0,0"
-            VerticalAlignment="Top"
-            RenderTransformOrigin="-0.093,-0.064"
-            Height="78"
-            Width="148"
-            Command="{Binding Stop}"
-            FontSize="36"
-            Background="#FFE42E2E"/>
     </Grid>
 </Window>
