@@ -21,7 +21,7 @@ namespace ViewModel
         {
             MyModel = ModelApi.CreateApi();
             Start = new RelayCommand(() => VisualisationStart());
-            numberOfBalls = 5;
+            numberOfBalls = 10;
             startButton = "Start";
         }
 
@@ -75,7 +75,7 @@ namespace ViewModel
 
         public void VisualisationStart()
         {
-            MyModel.Visualisation(Height, Width, 10, NumberOfBalls);
+            MyModel.Visualisation(Height, Width, 30, NumberOfBalls);
             StartButton = "In progress";
         }
 
