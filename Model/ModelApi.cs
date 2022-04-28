@@ -42,10 +42,6 @@ namespace Model
             }
         }
 
-        static public void Main()
-        {
-
-        }
     }
 
     
