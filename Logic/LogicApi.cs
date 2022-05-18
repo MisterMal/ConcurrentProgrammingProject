@@ -1,58 +1,136 @@
 ﻿using Data;
 using System;
 using System.Collections.Generic;
-using System.Threading;
+using System.ComponentModel;
 
 namespace Logic
 {
     public abstract class LogicApi
     {
-        private List<Thread> threadsList = new List<Thread>();
-        private List<IBall> ballList = new List<IBall>();
-        private static DataApi dataApi;
 
-        public abstract void BallsCreating(float xSpeed, float ySpeed, int radius, int howMany);
+        private List<LogicBall> logicBalls;
+        public abstract void BallsCreating(int radius, int howMany);
         public abstract void Start();
+        public abstract void Stop();
+        public abstract List<LogicBall> GetBalls();
 
-        public abstract List<IBall> GetBallList();
+
 
         public static LogicApi CreateApi(DataApi data = default)
         {
             return new LogicLayer(data ?? DataApi.CreateAPI());
         }
-        
 
-        public class LogicLayer : LogicApi
+
+        internal class LogicLayer : LogicApi
         {
-            public override List<IBall> GetBallList()
+            private static DataApi DataLayer;
+            internal LogicLayer(DataApi dataApi)
             {
-                return this.ballList;
+                DataLayer = dataApi;
             }
 
-            public LogicLayer(DataApi data)
+            public override void BallsCreating(int radius, int mass)
             {
-                dataApi = data;
+                logicBalls = new List<LogicBall>();
+                DataLayer.CreateBalls(radius, mass);
+
+                foreach (Ball ball in DataLayer.GetBalls())
+                {
+                    logicBalls.Add(new LogicBall(ball));
+                    ball.PropertyChanged += ChangeCords;
+                }
             }
 
-            public override void BallsCreating(float xSpeed, float ySpeed, int radius, int howMany)
+            private void ChangeCords(object sender, PropertyChangedEventArgs e)
             {
-                for (int i = 0; i < howMany; i++)
+                Ball ball = (Ball)sender;
+                if (e.PropertyName == "Cords")
                 {
-                    this.ballList.Add(new Ball(radius, xSpeed, ySpeed));
+                    ChangingSpeeds(ball);
+                    ball.Collision = false;
                 }
+            }
 
-                foreach (Ball ball in ballList)
+            private void ChangingSpeeds(Ball ball1)
+            {
+                BorderCheckX(ball1);
+                BorderCheckY(ball1);
+                Ball ball2 = WhichBallCollided(ball1);
+                if (ball2 != null)
                 {
-                    this.threadsList.Add(new Thread(new ThreadStart(ball.Movement)));
+                    float ball1x = (ball1.XSpeed * (ball1.Mass - ball2.Mass) / (ball1.Mass + ball2.Mass) + (2 * ball2.Mass * ball2.XSpeed) / (ball1.Mass + ball2.Mass));
+                    float ball2x = (ball2.XSpeed * (ball2.Mass - ball1.Mass) / (ball1.Mass + ball2.Mass) + (2 * ball1.Mass * ball1.XSpeed) / (ball1.Mass + ball2.Mass));
+
+                    float ball1y = (ball1.YSpeed * (ball1.Mass - ball2.Mass) / (ball1.Mass + ball2.Mass) + (2 * ball2.Mass * ball2.YSpeed) / (ball1.Mass + ball2.Mass));
+                    float ball2y = (ball2.YSpeed * (ball2.Mass - ball1.Mass) / (ball1.Mass + ball2.Mass) + (2 * ball1.Mass * ball1.YSpeed) / (ball1.Mass + ball2.Mass));
                 }
+            }
+
+            private void BorderCheckX(Ball ball)
+            {
+                if (ball.X + ball.XSpeed >= 700 - ball.Radius * 2)
+                {
+                    ball.X = 700 - ball.Radius * 2;
+                    ball.XSpeed *= -1;
+                }
+                else if (ball.X + ball.XSpeed <= 0)
+                {
+                    ball.X = 0;
+                    ball.XSpeed *= -1;
+                }
+                else
+                {
+                    ball.X = ball.X + ball.XSpeed;
+                }
+            }
+
+            private void BorderCheckY(Ball ball)
+            {
+                if (ball.Y + ball.YSpeed >= 700 - ball.Radius * 2)
+                {
+                    ball.Y = 700 - ball.Radius * 2;
+                    ball.YSpeed *= -1;
+                }
+                else if (ball.Y + ball.YSpeed <= 0)
+                {
+                    ball.Y = 0;
+                    ball.YSpeed *= -1;
+                }
+                else
+                {
+                    ball.Y = ball.Y + ball.YSpeed;
+                }
+            }
+
+            private Ball WhichBallCollided(Ball ball)
+            {
+                foreach (Ball collidingBall in DataLayer.GetBalls())
+                {
+                    if (collidingBall == ball)
+                        continue;
+
+                    float distance = (float)Math.Sqrt((ball.X - collidingBall.X) * (ball.X - collidingBall.X) + (ball.Y - collidingBall.Y) * (ball.Y - collidingBall.Y));
+
+                    if (distance <= ball.Radius + collidingBall.Radius)
+                        return collidingBall;
+                }
+                return null;
+            }
+
+            public override List<LogicBall> GetBalls()
+            {
+                return logicBalls;
             }
 
             public override void Start()
             {
-                foreach(Thread thread in threadsList)
-                {
-                    thread.Start();
-                }
+                DataLayer.StartBalls();
+            }
+
+            public override void Stop()
+            {
+                DataLayer.StopBalls();
             }
         }
 
