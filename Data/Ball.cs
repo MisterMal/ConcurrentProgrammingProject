@@ -16,7 +16,7 @@ namespace Data
         private float ySpeedValue = (float)1;
         private int mass = 10;
         private int count = 0;
-        private bool collision = false;
+        private bool flag = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -39,6 +39,7 @@ namespace Data
             X += xSpeedValue;
             Y += ySpeedValue;
             count++;
+            RaisePropertyChanged("Cords");
         }
 
         public float X
@@ -57,6 +58,15 @@ namespace Data
             {
                 this.yValue = value;
                 RaisePropertyChanged(nameof(Y));
+            }
+        }
+
+        public float Flag
+        {
+            get => this.Flag;
+            set
+            {
+                this.Flag = value;
             }
         }
 
