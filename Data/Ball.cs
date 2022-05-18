@@ -16,6 +16,7 @@ namespace Data
         private float ySpeedValue = (float)1;
         private int mass = 10;
         private int count = 0;
+        private bool collision = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -107,6 +108,12 @@ namespace Data
                 this.Count = value;
 
             }
+        }
+
+        public bool Collision
+        {
+            get => this.Collision;
+            set { this.Collision = value; }
         }
     }
 }
