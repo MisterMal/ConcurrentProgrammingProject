@@ -14,9 +14,6 @@ namespace Tests
             Assert.AreEqual(1, ball.Radius);
             Assert.AreEqual(1, ball.XSpeed);
             Assert.AreEqual(1, ball.YSpeed);
-
-            ball.Radius = 2;
-            Assert.AreEqual(2, ball.Radius);
         }
     }
 }

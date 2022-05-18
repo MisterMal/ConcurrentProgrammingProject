@@ -56,10 +56,6 @@ namespace Logic
             }
         }
 
-        static public void Main()
-        {
-
-        }
     }
 
     

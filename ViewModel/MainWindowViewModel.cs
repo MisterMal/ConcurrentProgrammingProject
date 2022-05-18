@@ -89,10 +89,6 @@ namespace ViewModel
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        static public void Main()
-        {
-
-        }
     }
 }
 
