@@ -11,12 +11,11 @@ namespace Data
             return new DataLayer();
         }
 
-        public abstract void CreateBalls(float x, float y, int radius, int mass);
+        public abstract void CreateBalls(int radius, int mass);
         public abstract void StartBalls();
-
         public abstract void StopBalls();
-
         public abstract bool IsCreationPossible(float x, float y, int radius);
+        public abstract List<Ball> GetBalls();
 
         internal class DataLayer : DataApi
         {
@@ -33,6 +32,8 @@ namespace Data
 
             }
 
+
+
             public override bool IsCreationPossible(float x, float y, int radius)
             {
                 foreach (Ball ball in balls)
@@ -44,7 +45,7 @@ namespace Data
                 return true;
             }
 
-            public override void CreateBalls(float x, float y, int radius, int mass)
+            public override void CreateBalls(int radius, int mass)
             {
                 Ball firstBall = new Ball(radius, mass);
                 balls.Add(firstBall);
@@ -111,6 +112,8 @@ namespace Data
             {
                 started = false;
             }
+
+            public override List<Ball> GetBalls() => this.balls;
         }
 
         
