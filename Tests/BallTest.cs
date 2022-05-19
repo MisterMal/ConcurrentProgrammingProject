@@ -4,7 +4,7 @@ using Logic;
 namespace Tests
 {
     [TestClass]
-    public class BallTest
+    public class BallTest2
     {
         Ball ball = new Ball(1, 1, 1);
 

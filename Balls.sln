@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{49E3C5C0-3F40-44B7-A5BD-533AA5928FCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{0A4B33C6-8FFC-47B8-A86A-CEE01AA3762A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{0A4B33C6-8FFC-47B8-A86A-CEE01AA3762A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestData", "TestData\TestData.csproj", "{02636CE8-2623-45CD-AA55-A9CEE0873EC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{0A4B33C6-8FFC-47B8-A86A-CEE01AA3762A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A4B33C6-8FFC-47B8-A86A-CEE01AA3762A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A4B33C6-8FFC-47B8-A86A-CEE01AA3762A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02636CE8-2623-45CD-AA55-A9CEE0873EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02636CE8-2623-45CD-AA55-A9CEE0873EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02636CE8-2623-45CD-AA55-A9CEE0873EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02636CE8-2623-45CD-AA55-A9CEE0873EC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
