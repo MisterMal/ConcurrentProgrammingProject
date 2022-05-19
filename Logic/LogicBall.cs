@@ -6,17 +6,19 @@ namespace Logic
     
     public class LogicBall : INotifyPropertyChanged
     {
-        private readonly Ball ball;
+        private readonly Ball myBall;
+
+        public Ball Ball { get => myBall; }
 
         public  LogicBall(Ball ball)
         {
-            this.ball = ball;
+            myBall = ball;
             ball.PropertyChanged += CordsChange;
         }
 
         public void CordsChange(object sender, PropertyChangedEventArgs e)
         {
-            RaisePropertyChanged("Coordinates");
+            RaisePropertyChanged("Cords");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -28,20 +30,20 @@ namespace Logic
 
         public float X
         {
-            get => ball.X;
+            get => myBall.X;
             set
             {
-                ball.X = value;
+                myBall.X = value;
                 RaisePropertyChanged(nameof(X));
             }
         }
 
         public float Y
         {
-            get => ball.Y;
+            get => myBall.Y;
             set
             {
-                ball.Y = value;
+                myBall.Y = value;
                 RaisePropertyChanged(nameof(Y));
             }
 
@@ -49,12 +51,12 @@ namespace Logic
 
         public int Radius
         {
-            get => ball.Radius;
+            get => myBall.Radius;
             set
             {
                 if (value > 0)
                 {
-                    ball.Radius = value;
+                    myBall.Radius = value;
                 }
 
                 else
@@ -67,19 +69,19 @@ namespace Logic
 
         public float XSpeed
         {
-            get => ball.XSpeed;
+            get => myBall.XSpeed;
             set
             {
-                ball.XSpeed = value;
+                myBall.XSpeed = value;
             }
         }
 
         public float YSpeed
         {
-            get => ball.YSpeed;
+            get => myBall.YSpeed;
             set
             {
-                ball.YSpeed = value;
+                myBall.YSpeed = value;
             }
         }
 
@@ -87,7 +89,11 @@ namespace Logic
         {
             get
             {
-                return ball.Mass;
+                return myBall.Mass;
+            }
+            set
+            {
+                myBall.Mass = value;
             }
         }
     }

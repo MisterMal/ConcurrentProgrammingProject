@@ -14,13 +14,14 @@ namespace ViewModel
         private int height = 400;
         private int width = 700;
         private string startButton;
-        private ModelApi MyModel { get; set; }
+        private ModelApi ModelLayer { get; set; }
 
 
         public MainWindowViewModel()
         {
-            MyModel = ModelApi.CreateApi();
+            ModelLayer = ModelApi.CreateApi();
             Start = new RelayCommand(() => VisualisationStart());
+            Stop = new RelayCommand(() => StopVisualisation());
             numberOfBalls = 10;
             startButton = "Start";
         }
@@ -33,7 +34,7 @@ namespace ViewModel
             set
             {
                 startButton = value;
-                RaisePropertyChanged("StartButton");
+                RaisePropertyChanged(nameof(StartButton));
             }
 
         }
@@ -44,7 +45,7 @@ namespace ViewModel
             set
             {
                 width = value;
-                RaisePropertyChanged("Width");
+                RaisePropertyChanged(nameof(Width));
             }
         }
 
@@ -54,20 +55,25 @@ namespace ViewModel
             set
             {
                 height = value;
-                RaisePropertyChanged("Height");
+                RaisePropertyChanged(nameof(Height));
             }
         }
 
-        public ObservableCollection<IBallModel> BallModelsCollection
+        public ObservableCollection<BallModel> BallModelsCollection
         {
-            get => MyModel.BallModelsCollection;
-            set => MyModel.BallModelsCollection = value;
+            get => ModelLayer.BallModelsCollection;
+            set => ModelLayer.BallModelsCollection = value;
         }
 
-        public int NumberOfBalls
+        public string NumberOfBalls
         {
-            get => numberOfBalls;
-            set => numberOfBalls = value;
+            get => numberOfBalls.ToString();
+            set
+            {
+                if (int.TryParse(value, out int n) && n != 0)
+                    numberOfBalls = Math.Abs(n);
+                RaisePropertyChanged(nameof(NumberOfBalls));
+            }
         }
 
         public ICommand Start { get; set; }
@@ -75,8 +81,12 @@ namespace ViewModel
 
         public void VisualisationStart()
         {
-            MyModel.Visualisation(Height, Width, 30, NumberOfBalls);
-            StartButton = "In progress";
+            ModelLayer.Visualisation(1, 1, 30, 10, numberOfBalls);
+        }
+
+        private void StopVisualisation()
+        {
+            ModelLayer.Stop();
         }
 
 

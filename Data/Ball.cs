@@ -15,8 +15,8 @@ namespace Data
         private float xSpeedValue = (float)1;
         private float ySpeedValue = (float)1;
         private int mass = 10;
-        private int count = 0;
-        private bool flag = false;
+        public int count = 0;
+        public bool flag = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,10 +34,17 @@ namespace Data
             this.mass = mass;
         }
 
+        public void RerollCords()
+        {
+            Random rand = new Random();
+            this.xValue = rand.Next(0 + Radius, 700 - Radius);
+            this.yValue = rand.Next(0 + Radius, 400 - Radius);
+        }
         public void Move()
         {
             X += xSpeedValue;
             Y += ySpeedValue;
+            flag = true;
             count++;
             RaisePropertyChanged("Cords");
         }
@@ -61,7 +68,7 @@ namespace Data
             }
         }
 
-        public float Flag
+        public bool Flag
         {
             get => this.Flag;
             set
@@ -95,35 +102,31 @@ namespace Data
             get => this.radiusValue;
             set
             {
-                this.Radius = value;
+                this.radiusValue = value;
                 RaisePropertyChanged(nameof(radiusValue));
             }
         }
 
         public int Mass
         {
-            get => this.Mass;
+            get => this.mass;
             set
             {
-                this.Mass = value;
+                this.mass = value;
                 RaisePropertyChanged(nameof(mass));
             }
         }
 
         public int Count
         {
-            get => this.Count;
+            get => this.count;
             set
             {
-                this.Count = value;
+                this.count = value;
 
             }
         }
 
-        public bool Collision
-        {
-            get => this.Collision;
-            set { this.Collision = value; }
-        }
+        
     }
 }

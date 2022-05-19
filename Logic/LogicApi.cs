@@ -9,7 +9,7 @@ namespace Logic
     {
 
         private List<LogicBall> logicBalls;
-        public abstract void BallsCreating(int radius, int howMany);
+        public abstract void BallsCreating(int radius, int mass, int numberOfBalls);
         public abstract void Start();
         public abstract void Stop();
         public abstract List<LogicBall> GetBalls();
@@ -24,16 +24,17 @@ namespace Logic
 
         internal class LogicLayer : LogicApi
         {
-            private static DataApi DataLayer;
+            private readonly DataApi DataLayer;
             internal LogicLayer(DataApi dataApi)
             {
                 DataLayer = dataApi;
             }
 
-            public override void BallsCreating(int radius, int mass)
+            public override void BallsCreating(int radius, int mass, int numberOfBalls)
             {
                 logicBalls = new List<LogicBall>();
-                DataLayer.CreateBalls(radius, mass);
+                DataLayer.CreateBalls(radius, mass, numberOfBalls);
+                DataLayer.createThreads();
 
                 foreach (Ball ball in DataLayer.GetBalls())
                 {
@@ -48,7 +49,7 @@ namespace Logic
                 if (e.PropertyName == "Cords")
                 {
                     ChangingSpeeds(ball);
-                    ball.Collision = false;
+                    ball.Flag = false;
                 }
             }
 
@@ -64,7 +65,14 @@ namespace Logic
 
                     float ball1y = (ball1.YSpeed * (ball1.Mass - ball2.Mass) / (ball1.Mass + ball2.Mass) + (2 * ball2.Mass * ball2.YSpeed) / (ball1.Mass + ball2.Mass));
                     float ball2y = (ball2.YSpeed * (ball2.Mass - ball1.Mass) / (ball1.Mass + ball2.Mass) + (2 * ball1.Mass * ball1.YSpeed) / (ball1.Mass + ball2.Mass));
+
+                    ball1.XSpeed = ball1x;
+                    ball1.YSpeed = ball1y;
+                    ball2.XSpeed = ball2x;
+                    ball2.YSpeed = ball2y;
                 }
+
+                
             }
 
             private void BorderCheckX(Ball ball)

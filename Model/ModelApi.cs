@@ -5,21 +5,23 @@ namespace Model
 {
     public abstract class ModelApi
     {
-        private ObservableCollection<IBallModel> ballModelsCollection = new ObservableCollection<IBallModel>();
+        private ObservableCollection<BallModel> ballModelsCollection = new ObservableCollection<BallModel>();
 
         public static ModelApi CreateApi(LogicApi logic = default)
         {
             return new ModelLayer(logic ?? LogicApi.CreateApi());
         }
-        public abstract void Visualisation(float xSpeed, float ySpeed, int radius, int howMany);
+        public abstract void Visualisation(float xSpeed, float ySpeed, int radius, int mass, int numberOfBalls);
+        public abstract void Stop();
+        public abstract void Start();
 
-        public ObservableCollection<IBallModel> BallModelsCollection
+        public ObservableCollection<BallModel> BallModelsCollection
         {
             get => ballModelsCollection;
             set => ballModelsCollection = value;
         }
 
-        public class ModelLayer : ModelApi
+        internal class ModelLayer : ModelApi
         {
             private readonly LogicApi logicApi;
 
@@ -29,15 +31,28 @@ namespace Model
             }
 
 
-            public override void Visualisation(float xSpeed, float ySpeed, int radius, int howMany)
+            public override void Visualisation(float xSpeed, float ySpeed, int radius, int mass, int numberOfBalls)
             {
-  
-                logicApi.BallsCreating(1, 1, radius, howMany);
-                foreach (IBall b in logicApi.GetBallList())
+                Stop();
+                logicApi.BallsCreating(radius, mass, numberOfBalls);
+
+                //ballModelsCollection.Clear();
+
+                foreach (LogicBall ball in logicApi.GetBalls())
                 {
-                    ballModelsCollection.Add(new BallModel(b));
+                    ballModelsCollection.Add(new BallModel(ball));
                 }
 
+                Start();
+            }
+
+            public override void Stop()
+            {
+                logicApi.Stop();
+            }
+
+            public override void Start()
+            {
                 logicApi.Start();
             }
         }
