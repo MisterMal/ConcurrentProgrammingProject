@@ -14,6 +14,7 @@ namespace ViewModel
         private int height = 400;
         private int width = 700;
         private string startButton;
+        private bool isAvailable = true;
         private ModelApi ModelLayer { get; set; }
 
 
@@ -21,7 +22,6 @@ namespace ViewModel
         {
             ModelLayer = ModelApi.CreateApi();
             Start = new RelayCommand(() => VisualisationStart());
-            Stop = new RelayCommand(() => StopVisualisation());
             numberOfBalls = 5;
             startButton = "Start";
         }
@@ -59,6 +59,16 @@ namespace ViewModel
             }
         }
 
+        public bool IsStartAvailable
+        {
+            get => isAvailable;
+            set
+            {
+                isAvailable = value;
+                RaisePropertyChanged(nameof(IsStartAvailable));
+            }
+        }
+
         public ObservableCollection<BallModel> BallModelsCollection
         {
             get => ModelLayer.BallModelsCollection;
@@ -77,16 +87,12 @@ namespace ViewModel
         }
 
         public ICommand Start { get; set; }
-        public ICommand Stop { get; set; }
 
         public void VisualisationStart()
         {
             ModelLayer.Visualisation(1, 1, 30, 10, numberOfBalls);
-        }
-
-        private void StopVisualisation()
-        {
-            ModelLayer.Stop();
+            StartButton = "In progress";
+            IsStartAvailable = false;
         }
 
 

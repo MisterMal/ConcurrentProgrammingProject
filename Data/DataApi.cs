@@ -96,14 +96,8 @@ namespace Data
             }
 
             public override List<Ball> GetBalls() => this.balls;
-
-            
+         
         }
 
-      
-
-
     }
-
-
 }
