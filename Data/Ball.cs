@@ -70,10 +70,10 @@ namespace Data
 
         public bool Flag
         {
-            get => this.Flag;
+            get => this.flag;
             set
             {
-                this.Flag = value;
+                this.flag = value;
             }
         }
 

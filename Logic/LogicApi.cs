@@ -49,7 +49,7 @@ namespace Logic
                 if (e.PropertyName == "Cords")
                 {
                     ChangingSpeeds(ball);
-                    ball.Flag = false;
+                    ball.flag = false;
                 }
             }
 
@@ -95,9 +95,9 @@ namespace Logic
 
             private void BorderCheckY(Ball ball)
             {
-                if (ball.Y + ball.YSpeed >= 700 - ball.Radius * 2)
+                if (ball.Y + ball.YSpeed >= 400 - ball.Radius * 2)
                 {
-                    ball.Y = 700 - ball.Radius * 2;
+                    ball.Y = 400 - ball.Radius * 2;
                     ball.YSpeed *= -1;
                 }
                 else if (ball.Y + ball.YSpeed <= 0)
@@ -120,7 +120,7 @@ namespace Logic
 
                     float distance = (float)Math.Sqrt((ball.X - collidingBall.X) * (ball.X - collidingBall.X) + (ball.Y - collidingBall.Y) * (ball.Y - collidingBall.Y));
 
-                    if (distance <= ball.Radius + collidingBall.Radius)
+                    if (distance <= ball.Radius + collidingBall.Radius - 1)
                         return collidingBall;
                 }
                 return null;

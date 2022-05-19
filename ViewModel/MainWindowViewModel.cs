@@ -22,7 +22,7 @@ namespace ViewModel
             ModelLayer = ModelApi.CreateApi();
             Start = new RelayCommand(() => VisualisationStart());
             Stop = new RelayCommand(() => StopVisualisation());
-            numberOfBalls = 10;
+            numberOfBalls = 5;
             startButton = "Start";
         }
 
