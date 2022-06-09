@@ -51045,7 +51045,3 @@
 2022-06-09T19:32:21.0024635+02:00 : {"ID":2,"X":524,"Y":314}
 2022-06-09T19:32:21.0024635+02:00 : {"ID":3,"X":104,"Y":168}
 2022-06-09T19:32:21.0024635+02:00 : {"ID":4,"X":294,"Y":32}
-
-
- //Zawiera zestaw metod i właściwości, których można użyć do dokładnego mierzenia czasu, który upłynął.
- //chyba konstruktor 
