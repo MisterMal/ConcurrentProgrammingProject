@@ -11,8 +11,8 @@ namespace Data
     {
         private static List<Ball> balls;
         private bool isLogging = true;
-        private Stopwatch startTime;
-        internal Log(List<Ball> BallList)
+        private Stopwatch startTime;   
+        internal Log(List<Ball> BallList)       
         {
             balls = BallList;
 

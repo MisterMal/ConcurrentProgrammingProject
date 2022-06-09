@@ -36,6 +36,20 @@
                 FontSize="30"
                 Background="ForestGreen"
                 IsEnabled="{Binding IsStartAvailable}"/>
+
+        <Button x:Name="StopButton" Content="Stop"
+                HorizontalAlignment="Left"
+                Margin="340,420,0,0"
+                VerticalAlignment="Top"
+                RenderTransformOrigin="-0.1,-0.297"
+                Height="70"
+                Width="180"
+                Command="{Binding Stop}"          
+                FontSize="30"
+                Background="OrangeRed"
+                IsEnabled="{Binding IsStopAvailable}"
+                />
+        
         <ItemsControl 
                 ItemsSource="{Binding BallModelsCollection}"              
                 Height="{Binding Height}"
