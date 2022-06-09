@@ -9,17 +9,15 @@ namespace TestData
         [TestMethod]
         public void CreateBallTest()
         {
-            Ball ballTest = new Ball(2, 5);
+            Ball ballTest = new Ball(2, 5, 1);
 
             Assert.AreEqual(ballTest.Radius, 2);
             Assert.AreEqual(ballTest.Mass, 5);
 
             Assert.IsTrue(!ballTest.Flag);
-            Assert.IsTrue(ballTest.count == 0);
 
             ballTest.Move();
 
-            Assert.IsTrue(ballTest.count == 1);
             Assert.IsTrue(ballTest.Flag);
 
         }
