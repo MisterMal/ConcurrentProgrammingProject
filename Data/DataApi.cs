@@ -25,17 +25,15 @@ namespace Data
             private List<Thread> threads = new List<Thread>();
             private object myLock = new object();
             private bool started = false;
+            Log logger;
 
-            public DataLayer()
-            {
-
-            }
+            
 
             public override void CreateBalls(int radius, int mass, int numberOfBalls)
             {
                 for (int i = 0; i < numberOfBalls; i++)
                 {
-                    Ball ball = new Ball(radius, mass);
+                    Ball ball = new Ball(radius, mass, i);
                     while (!IsCreationPossible(ball.X, ball.Y, ball.Radius))
                     {
                         ball.RerollCords();
@@ -59,7 +57,7 @@ namespace Data
                                 ball.Move();
                             }
 
-                            Thread.Sleep(10);
+                            Thread.Sleep(5);
                         }
 
                     });
@@ -74,7 +72,7 @@ namespace Data
                 foreach (Ball ball in balls)
                 {
                     float d = (float)Math.Sqrt((x - ball.X) * (x - ball.X) + (y - ball.Y) * (y - ball.Y));
-                    if (d <= radius + ball.Radius + 1)
+                    if (d <= radius + ball.Radius)
                         return false;
                 }
                 return true;
@@ -88,16 +86,26 @@ namespace Data
                 {
                     thread.Start();
                 }
+
+                logger = new Log(GetBalls());
             }
 
             public override void StopBalls()
             {
                 started = false;
+                if (logger != null)
+                {
+                    logger.StopLogging();
+                }
             }
 
             public override List<Ball> GetBalls() => this.balls;
 
-            
+            public DataLayer()
+            {
+
+            }
+
         }
 
         

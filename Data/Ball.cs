@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace Data
 {
     public class Ball : INotifyPropertyChanged
     {
+        private int ballID;
         private float xValue;
         private float yValue;
         private int radiusValue = 10;
         private float xSpeedValue = (float)1;
         private float ySpeedValue = (float)1;
         private int mass = 10;
-        public int count = 0;
         public bool flag = false;
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,13 +23,14 @@ namespace Data
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public Ball(int radius, int mass)
+        public Ball(int radius, int mass, int ballID)
         {
             Random rand = new Random();
             this.radiusValue = radius;
             this.xValue = rand.Next(0 + Radius, 700 - Radius);
             this.yValue = rand.Next(0 + Radius, 400 - Radius);
             this.mass = mass;
+            this.ballID = ballID;
         }
 
         public void RerollCords()
@@ -45,8 +44,12 @@ namespace Data
             X += xSpeedValue;
             Y += ySpeedValue;
             flag = true;
-            count++;
             RaisePropertyChanged("Cords");
+        }
+
+        public int ID
+        {
+            get { return ballID; }
         }
 
         public float X
@@ -68,6 +71,9 @@ namespace Data
             }
         }
 
+        
+
+        [JsonIgnore]
         public bool Flag
         {
             get => this.flag;
@@ -77,6 +83,7 @@ namespace Data
             }
         }
 
+        [JsonIgnore]
         public float XSpeed
         {
             get => this.xSpeedValue;
@@ -87,6 +94,7 @@ namespace Data
             }
         }
 
+        [JsonIgnore]
         public float YSpeed
         {
             get => this.ySpeedValue;
@@ -97,6 +105,7 @@ namespace Data
             }
         }
 
+        [JsonIgnore]
         public int Radius
         {
             get => this.radiusValue;
@@ -107,6 +116,7 @@ namespace Data
             }
         }
 
+        [JsonIgnore]
         public int Mass
         {
             get => this.mass;
@@ -116,17 +126,5 @@ namespace Data
                 RaisePropertyChanged(nameof(mass));
             }
         }
-
-        public int Count
-        {
-            get => this.count;
-            set
-            {
-                this.count = value;
-
-            }
-        }
-
-        
     }
 }
